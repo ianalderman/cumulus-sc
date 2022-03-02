@@ -50,13 +50,10 @@ export class CatalogConnection extends Octokit {
 
     constructor() {
         super();
-        //TO DO: Make these config items
-        //this.repoOrg = "egUnicorn"
-        //this.catalogRepo = "platform-svc-cat"
-        //this.manifestFileName = "manifest.json"
-        if (!process.env.REPO_ORG) {throw "Repo Owner not set"} else { this.repoOrg = process.env.REPO_ORG}
-        if (!process.env.CATALOG_REPO) {throw "Repository Name not set"} else { this.catalogRepo = process.env.CATALOG_REPO}
-        if (!process.env.MANIFEST_FILE_NAME) {throw "Manifest filename not set"} else { this.manifestFileName = process.env.MANIFEST_FILE_NAME}
+
+        if (process.env.REACT_APP_REPO_ORG) {this.repoOrg = process.env.REACT_APP_REPO_ORG} else { throw "Repo Owner not set" }
+        if (process.env.REACT_APP_CATALOG_REPO) {this.catalogRepo = process.env.REACT_APP_CATALOG_REPO} else { throw "Repository Name not set" }
+        if (process.env.REACT_APP_MANIFEST_FILE_NAME) { this.manifestFileName = process.env.REACT_APP_MANIFEST_FILE_NAME} else { throw "Manifest filename not set"}
 
         //TO DO: Make this oAuth
         this.octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_PAT });
